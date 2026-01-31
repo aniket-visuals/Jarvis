@@ -1,0 +1,7 @@
+{
+  "name": "J.A.R.V.I.S. Web Protocol",
+  "description": "A futuristic, voice-activated AI command center created by Aniket Visuals.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
