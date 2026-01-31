@@ -80,27 +80,43 @@ export default function App() {
     {
         name: 'runSystemDiagnostics',
         description: 'Run system diagnostics.',
-        parameters: { type: Type.OBJECT, properties: {} }
+        parameters: { 
+            type: Type.OBJECT, 
+            properties: { 
+                mode: { type: Type.STRING, enum: ['full', 'quick'], description: 'Diagnostic mode' }
+            } 
+        }
     },
     {
         name: 'lockSystem',
         description: 'Lock system interface.',
-        parameters: { type: Type.OBJECT, properties: {} }
+        parameters: { 
+            type: Type.OBJECT, 
+            properties: {
+                reason: { type: Type.STRING, description: 'Reason for locking' }
+            }
+        }
     },
     {
         name: 'unlockSystem',
         description: 'Unlock system interface.',
-        parameters: { type: Type.OBJECT, properties: {} }
+        parameters: { 
+            type: Type.OBJECT, 
+            properties: {
+                code: { type: Type.STRING, description: 'Unlock code' }
+            }
+        }
     }
   ];
 
   // Main Live API Connection Logic
   const connectToJarvis = async () => {
-    if (!apiKey && (!process.env.API_KEY)) {
+    const keyToUse = apiKey || process.env.API_KEY;
+    if (!keyToUse) {
         return;
     }
     
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: keyToUse });
     
     // Audio Context Setup
     inputAudioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });

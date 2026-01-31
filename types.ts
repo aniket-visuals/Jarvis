@@ -28,6 +28,7 @@ declare global {
   }
 
   interface Window {
+    aistudio?: AIStudio;
     process: {
         env: {
             API_KEY?: string;
